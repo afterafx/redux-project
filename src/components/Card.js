@@ -1,5 +1,5 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 
 const Card = ({ card }) => (
   <div
@@ -26,10 +26,10 @@ const Card = ({ card }) => (
       &times;
     </button>
   </div>
-)
+);
 
 Card.propTypes = {
   card: PropTypes.object,
-}
+};
 
-export default Card
+export default Card;

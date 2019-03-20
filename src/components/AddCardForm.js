@@ -1,18 +1,25 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export default class AddCardForm extends Component {
+  static propTypes = {
+    addCard: PropTypes.func.isRequired,
+    boardIndex: PropTypes.number.isRequired,
+  };
+
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       inputValue: '',
-    }
+    };
   }
 
   handleSubmit = e => {
-    e.preventDefault()
-    console.log('submitting...')
-    this.setState({ inputValue: '' })
-  }
+    e.preventDefault();
+    // dispatch an addCard
+    this.props.addCard(this.state.inputValue, this.props.boardIndex);
+    this.setState({ inputValue: '' });
+  };
 
   render() {
     return (
@@ -42,6 +49,6 @@ export default class AddCardForm extends Component {
           +
         </button>
       </form>
-    )
+    );
   }
 }

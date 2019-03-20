@@ -1,4 +1,4 @@
-export const boards = ['TODO', 'In Progress', 'Completed']
+export const boards = ['TODO', 'In Progress', 'Completed'];
 
 export const cards = [
   {
@@ -26,4 +26,4 @@ export const cards = [
     text: 'this is todo',
     board: 0,
   },
-]
+];
