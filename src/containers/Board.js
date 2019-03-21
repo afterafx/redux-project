@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { addCard } from '../actions';
+// import { addCard, removeCard } from '../actions';
+import * as Actions from '../actions';
 import AddCardForm from '../components/AddCardForm';
 import Card from '../components/Card';
 
@@ -11,15 +13,18 @@ class Board extends React.Component {
     name: PropTypes.string,
     cards: PropTypes.array.isRequired,
     addCard: PropTypes.func,
+    removeCard: PropTypes.func,
+    transferCard: PropTypes.func,
   };
 
   handleDrop = e => {
     e.preventDefault();
-    console.log('dropping...');
+    // console.log('dropping...');
+    this.props.transferCard(e.dataTransfer.getData('cardId'), this.props.index);
   };
 
   render() {
-    const { index, name, cards, addCard } = this.props;
+    const { index, name, cards, addCard, removeCard } = this.props;
     return (
       <div
         className="board"
@@ -37,7 +42,7 @@ class Board extends React.Component {
         <h2 style={{ margin: '0', marginBottom: '1rem' }}>{name}</h2>
 
         {cards.map((card, i) => (
-          <Card key={i} card={card} />
+          <Card key={i} card={card} removeCard={removeCard} />
         ))}
         <AddCardForm boardIndex={index} addCard={addCard} />
       </div>
@@ -49,9 +54,20 @@ const mapStateToProps = (state, ownProps) => ({
   cards: state.cards.filter(card => card.board === ownProps.index),
 });
 
-const mapDispatchToProps = dispatch => ({
-  addCard: (text, boardIndex) => dispatch(addCard(text, boardIndex)),
-});
+// const mapDispatchToProps = dispatch => ({
+//   addCard: (text, boardIndex) => dispatch(Actions.addCard(text, boardIndex)),
+//   removeCard: boardIndex => dispatch(Actions.removeCard(boardIndex)),
+// });
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      addCard: Actions.addCard,
+      removeCard: Actions.removeCard,
+      transferCard: Actions.transferCard,
+    },
+    dispatch
+  );
 
 const ConnectedBoard = connect(
   mapStateToProps,
