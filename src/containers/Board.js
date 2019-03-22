@@ -24,7 +24,7 @@ class Board extends React.Component {
   };
 
   render() {
-    const { index, name, cards, addCard, removeCard } = this.props;
+    const { index, name, cards, addCard, removeCard, removeBoard } = this.props;
     return (
       <div
         className="board"
@@ -40,6 +40,19 @@ class Board extends React.Component {
         onDrop={this.handleDrop}
       >
         <h2 style={{ margin: '0', marginBottom: '1rem' }}>{name}</h2>
+        <button
+          style={{
+            border: 'none',
+            fontSize: '.75rem',
+            cursor: 'pointer',
+            borderRadius: '5px',
+            color: 'red',
+            marginBottom: '5px',
+          }}
+          onClick={() => removeBoard(index)}
+        >
+          Remove Board
+        </button>
 
         {cards.map((card, i) => (
           <Card key={i} card={card} removeCard={removeCard} />
@@ -65,6 +78,7 @@ const mapDispatchToProps = dispatch =>
       addCard: Actions.addCard,
       removeCard: Actions.removeCard,
       transferCard: Actions.transferCard,
+      removeBoard: Actions.removeBoard,
     },
     dispatch
   );

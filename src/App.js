@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import * as Actions from './actions';
 import Main from './containers/Main';
 import './typography.css';
 
